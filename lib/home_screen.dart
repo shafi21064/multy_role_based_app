@@ -1,8 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  String userName = '', password = '' ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loadData();
+  }
+
+  void loadData() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    userName = sp.getString('username') ?? '' ;
+    password = sp. getString('password') ?? '' ;
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +38,26 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center
             ,
             children: [
-              Text('This is home screen'),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('User Name'),
+                  Text(userName),
+                ],
+              ),
+
+              SizedBox(
+                height: 20,
+              ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Password'),
+                  Text(password),
+                ],
+              ),
 
               SizedBox(
                 height: 20,
