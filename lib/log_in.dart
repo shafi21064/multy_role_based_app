@@ -6,6 +6,7 @@ class LoginScreen extends StatelessWidget {
 
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+  final positionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +41,27 @@ class LoginScreen extends StatelessWidget {
                 controller: passwordController,
               ),
               const SizedBox(
+                height: 10,
+              ),
+
+              TextFormField(
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    hintText: 'Position'),
+                controller: positionController,
+              ),
+              const SizedBox(
                 height: 20,
               ),
+
               InkWell(
                 onTap: () async {
                   SharedPreferences sp = await SharedPreferences.getInstance();
                   sp.setString('username', userNameController.text.toString());
                   sp.setString('password', passwordController.text.toString());
-                  sp.setBool('islogin',true);
+                  sp.setString('position', positionController.text.toString());
+                  sp.setBool('islogin', true);
 
                   Navigator.of(context).pushNamed('/homepage');
                 },
